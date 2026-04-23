@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>WildPulse | Animal Blog & Stories</title>
+  <!-- Tailwind CSS v3 + Font Awesome + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['"Inter"', 'system-ui', 'ui-sans-serif', 'sans-serif'],
+            'display': ['"Playfair Display"', 'serif'],
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.7s ease-out forwards',
+            'float-slow': 'float 5s ease-in-out infinite',
+            'pulse-leaf': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      scroll-behavior: smooth;
+    }
+    .modal-transition {
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    body.modal-open {
+      overflow: hidden;
+    }
+    .hero-bg-pattern {
+      background-image: radial-gradient(circle at 20% 40%, rgba(168, 85, 247, 0.08) 0%, rgba(255,255,255,0) 70%);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+    }
+  </style>
+</head>
+<body class="font-sans bg-white text-gray-800 antialiased">
+
+  <!-- ==================== HEADER with logo & menu sections ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+    <div class="container mx-auto px-6 py-4 flex flex-wrap items-center justify-between">
+      <!-- Logo + Website Name -->
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-gradient-to-br from-emerald-600 to-teal-500 rounded-full flex items-center justify-center shadow-md">
+          <i class="fas fa-paw text-white text-sm"></i>
+        </div>
+        <a href="#" class="text-2xl font-display font-bold bg-gradient-to-r from-emerald-700 to-teal-600 bg-clip-text text-transparent">WildPulse</a>
+      </div>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
+        <a href="#home" class="hover:text-emerald-600 transition">Home</a>
+        <a href="#stories" class="hover:text-emerald-600 transition">Stories</a>
+        <a href="#species" class="hover:text-emerald-600 transition">Species</a>
+        <a href="#conservation" class="hover:text-emerald-600 transition">Conservation</a>
+        <a href="#blog" class="hover:text-emerald-600 transition">Blog</a>
+        <a href="#subscribe" class="hover:text-emerald-600 transition">Subscribe</a>
+      </nav>
+      
+      <!-- Mobile menu button (simple toggle for demonstration, but keeps functionality) -->
+      <div class="md:hidden">
+        <button id="mobileMenuBtn" class="text-gray-600 focus:outline-none text-2xl"><i class="fas fa-bars"></i></button>
+      </div>
+      <!-- Action button -->
+      <!-- <div class="hidden md:block">
+        <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-sm transition"><i class="fas fa-leaf mr-1"></i> Donate</button>
+      </div> -->
+    </div>
+    <!-- Mobile Menu Panel (hidden by default) -->
+    <div id="mobileMenu" class="md:hidden bg-white border-t border-gray-100 py-4 px-6 hidden flex-col space-y-3 shadow-md">
+      <a href="#home" class="hover:text-emerald-600 transition block">Home</a>
+      <a href="#stories" class="hover:text-emerald-600 transition block">Stories</a>
+      <a href="#species" class="hover:text-emerald-600 transition block">Species</a>
+      <a href="#conservation" class="hover:text-emerald-600 transition block">Conservation</a>
+      <a href="#blog" class="hover:text-emerald-600 transition block">Blog</a>
+      <a href="#subscribe" class="hover:text-emerald-600 transition block">Subscribe</a>
+      <button class="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm w-full">Donate</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== SECTION 1: HERO (Home) ========== -->
+    <section id="home" class="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-teal-50 to-white hero-bg-pattern pt-12 pb-20 md:pt-20">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+          <div class="flex-1 text-center lg:text-left animate-fade-up">
+            <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-4 py-1.5 rounded-full text-sm font-semibold mb-5">
+              <i class="fas fa-feather-alt"></i>
+              <span>wildlife & nature blog</span>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-display font-bold tracking-tight text-gray-900 leading-tight">
+              Roaming the <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Wild</span><br>One Story at a Time
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-6 max-w-2xl mx-auto lg:mx-0">
+              Discover captivating animal tales, conservation insights, and breathtaking wildlife photography from every corner of the planet.
+            </p>
+            <!-- <div class="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
+              <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg shadow-emerald-200 transition transform hover:-translate-y-1">Explore the wild <i class="fas fa-arrow-right ml-2"></i></button>
+              <button class="border border-emerald-300 hover:border-emerald-500 bg-white/70 text-gray-700 hover:text-emerald-600 font-semibold px-8 py-3 rounded-full transition">Watch videos</button>
+            </div> -->
+          </div>
+          <div class="flex-1 flex justify-center">
+            <div class="relative">
+              <div class="absolute -top-6 -right-6 w-64 h-64 bg-emerald-200 rounded-full filter blur-3xl opacity-40 animate-pulse-leaf"></div>
+              <img class="relative z-10 rounded-3xl shadow-2xl w-full max-w-md object-cover transform hover:scale-105 transition duration-700" src="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Elephant in savanna">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 2: LATEST STORIES (Featured articles) ========== -->
+    <section id="stories" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-emerald-600 font-semibold tracking-wide text-sm"><i class="fas fa-book-open"></i> from the field</span>
+          <h2 class="text-3xl md:text-4xl font-display font-bold mt-2 text-gray-900">Latest animal stories</h2>
+          <p class="text-gray-500 mt-3">Heartfelt encounters and untold journeys of Earth's most amazing creatures.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm card-hover cursor-pointer">
+            <div class="h-56 overflow-hidden"><img class="w-full h-full object-cover transition duration-500 hover:scale-105" src="https://plus.unsplash.com/premium_photo-1664302617050-10cc0a18c2ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cheetah"></div>
+            <div class="p-5"><div class="flex items-center gap-2 text-xs text-emerald-600 mb-2"><i class="fas fa-map-marker-alt"></i> Serengeti</div><h3 class="text-xl font-bold">The Cheetah's Comeback</h3><p class="text-gray-500 text-sm mt-1">How conservation efforts helped restore a fragile predator population.</p><div class="mt-4 flex items-center gap-3 text-gray-400 text-xs"><span><i class="far fa-calendar-alt"></i> Apr 12, 2025</span><span>5 min read</span></div></div>
+          </div>
+          <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm card-hover">
+            <div class="h-56 overflow-hidden"><img class="w-full h-full object-cover transition" src="https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wolf"></div>
+            <div class="p-5"><div class="flex items-center gap-2 text-xs text-emerald-600 mb-2"><i class="fas fa-tree"></i> Yellowstone</div><h3 class="text-xl font-bold">Wolves of the North</h3><p class="text-gray-500 text-sm">The ecological impact of reintroducing gray wolves after 70 years.</p><div class="mt-4 flex text-gray-400 text-xs gap-3"><span><i class="far fa-calendar-alt"></i> Mar 28, 2025</span><span>8 min read</span></div></div>
+          </div>
+          <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm card-hover">
+            <div class="h-56 overflow-hidden"><img class="w-full h-full object-cover transition" src="https://images.unsplash.com/photo-1534759846116-5799c33ce22a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Orangutan"></div>
+            <div class="p-5"><div class="flex items-center gap-2 text-xs text-emerald-600 mb-2"><i class="fas fa-seedling"></i> Borneo</div><h3 class="text-xl font-bold">Orphaned Orangutans</h3><p class="text-gray-500 text-sm">Rehabilitation center gives a second chance to rainforest orphans.</p><div class="mt-4 flex text-gray-400 text-xs gap-3"><span><i class="far fa-calendar-alt"></i> Apr 5, 2025</span><span>6 min read</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 3: AMAZING SPECIES (grid of animals) ========== -->
+    <section id="species" class="py-20 bg-gradient-to-b from-emerald-50 to-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <span class="text-emerald-700 font-semibold">wild wonders</span>
+          <h2 class="text-3xl md:text-4xl font-display font-bold">Meet extraordinary species</h2>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+          <div class="bg-white rounded-2xl p-5 w-56 text-center shadow-md hover:shadow-xl transition"><div class="text-6xl mb-3">🐘</div><h3 class="font-bold">African Elephant</h3><p class="text-xs text-gray-500">Savanna giant</p></div>
+          <div class="bg-white rounded-2xl p-5 w-56 text-center shadow-md hover:shadow-xl"><div class="text-6xl mb-3">🐋</div><h3 class="font-bold">Humpback Whale</h3><p class="text-xs text-gray-500">Ocean singer</p></div>
+          <div class="bg-white rounded-2xl p-5 w-56 text-center shadow-md hover:shadow-xl"><div class="text-6xl mb-3">🦜</div><h3 class="font-bold">Scarlet Macaw</h3><p class="text-xs text-gray-500">Rainbow flyer</p></div>
+          <div class="bg-white rounded-2xl p-5 w-56 text-center shadow-md hover:shadow-xl"><div class="text-6xl mb-3">🐺</div><h3 class="font-bold">Arctic Wolf</h3><p class="text-xs text-gray-500">Tundra hunter</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 4: CONSERVATION IMPACT ========== -->
+    <section id="conservation" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+          <div class="flex-1 order-2 lg:order-1"><span class="text-emerald-600 font-semibold"><i class="fas fa-hand-holding-heart"></i> make a difference</span><h2 class="text-3xl md:text-4xl font-display font-bold mt-2">Protecting wildlife together</h2><p class="text-gray-600 mt-4">Through habitat restoration and anti-poaching patrols, we’ve helped protect over 1.2 million acres of critical ecosystems. Join the movement.</p><div class="mt-6 flex gap-4 flex-wrap"><div class="bg-emerald-100 p-3 rounded-xl text-center w-28"><div class="text-2xl font-bold text-emerald-800">+340%</div><div class="text-xs">Tiger population</div></div><div class="bg-emerald-100 p-3 rounded-xl text-center w-28"><div class="text-2xl font-bold text-emerald-800">12k+</div><div class="text-xs">Volunteers</div></div></div><button class="mt-6 bg-emerald-600 text-white px-6 py-2.5 rounded-full font-semibold shadow">Learn more <i class="fas fa-arrow-right ml-1"></i></button></div>
+          <div class="flex-1 order-1 lg:order-2"><img class="rounded-2xl shadow-xl w-full" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ranger with rhino"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 5: BLOG ARTICLES (latest posts) ========== -->
+    <section id="blog" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12"><span class="text-emerald-600 font-semibold">fresh reads</span><h2 class="text-3xl font-display font-bold">From our animal blog</h2></div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-xl p-5 shadow-sm"><i class="fas fa-feather-alt text-emerald-500 text-2xl mb-3"></i><h3 class="text-xl font-bold">How birds navigate using Earth's magnetic field</h3><p class="text-gray-500 text-sm mt-2">Incredible science behind migration.</p><span class="inline-block mt-4 text-emerald-600 text-sm font-medium">Read more →</span></div>
+          <div class="bg-white rounded-xl p-5 shadow-sm"><i class="fas fa-water text-emerald-500 text-2xl mb-3"></i><h3 class="text-xl font-bold">Coral reef restoration success stories</h3><p class="text-gray-500 text-sm mt-2">How 3D-printed reefs are reviving marine life.</p><span class="inline-block mt-4 text-emerald-600 text-sm font-medium">Read more →</span></div>
+          <div class="bg-white rounded-xl p-5 shadow-sm"><i class="fas fa-paw text-emerald-500 text-2xl mb-3"></i><h3 class="text-xl font-bold">Interview with a wildlife photographer</h3><p class="text-gray-500 text-sm mt-2">Capturing the soul of endangered species.</p><span class="inline-block mt-4 text-emerald-600 text-sm font-medium">Read more →</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 6: NEWSLETTER SUBSCRIBE ========== -->
+    <section id="subscribe" class="py-20 bg-gradient-to-r from-emerald-900 to-teal-800 text-white">
+      <div class="container mx-auto px-6 text-center max-w-3xl">
+        <i class="fas fa-envelope text-4xl mb-4 opacity-80"></i>
+        <h2 class="text-3xl font-display font-bold">Get wildlife stories in your inbox</h2>
+        <p class="text-emerald-100 mt-2">Subscribe and receive monthly updates, rare animal footage, and conservation news.</p>
+        <div class="flex flex-col sm:flex-row gap-3 mt-6 max-w-md mx-auto"><input type="email" placeholder="Your email address" class="flex-1 px-5 py-3 rounded-full text-gray-800 focus:ring-2 focus:ring-emerald-300 outline-none"><button class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-3 rounded-full transition">Subscribe</button></div>
+        <p class="text-xs text-emerald-200 mt-4">No spam, unsubscribe anytime.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER + LEGAL MODAL ==================== -->
+  <footer class="bg-gray-900 text-gray-300 pt-12 pb-8">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div class="md:col-span-2"><div class="flex items-center gap-2"><i class="fas fa-paw text-emerald-400 text-xl"></i><span class="text-2xl font-display font-bold text-white">WildPulse</span></div><p class="text-gray-400 mt-2 max-w-sm">Exploring nature's untold stories. Inspiring connection between humans and wildlife through journalism and photography.</p><div class="flex gap-4 mt-5"><a href="#" class="hover:text-emerald-400"><i class="fab fa-instagram text-xl"></i></a><a href="#" class="hover:text-emerald-400"><i class="fab fa-twitter text-xl"></i></a><a href="#" class="hover:text-emerald-400"><i class="fab fa-youtube text-xl"></i></a></div></div>
+        <div><h3 class="font-bold text-white">Explore</h3><ul class="mt-3 space-y-2 text-sm"><li><a href="#stories" class="hover:text-emerald-400">Stories</a></li><li><a href="#species" class="hover:text-emerald-400">Species</a></li><li><a href="#blog" class="hover:text-emerald-400">Blog</a></li></ul></div>
+        <div><h3 class="font-bold text-white">Support</h3><ul class="mt-3 space-y-2 text-sm"><li><a href="#" class="hover:text-emerald-400">Contact</a></li><li><a href="#" class="hover:text-emerald-400">FAQs</a></li><li><a href="#" class="hover:text-emerald-400">Donate</a></li></ul></div>
+        <div><h3 class="font-bold text-white">Legal</h3><ul class="mt-3 space-y-2 text-sm">
+          <li><button data-legal="privacy" class="legal-link hover:text-emerald-400 transition">Privacy Policy</button></li>
+          <li><button data-legal="terms" class="legal-link hover:text-emerald-400 transition">Terms of Service</button></li>
+          <li><button data-legal="cookies" class="legal-link hover:text-emerald-400 transition">Cookie Policy</button></li>
+        </ul></div>
+      </div>
+      <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500 text-sm">&copy; 2025 WildPulse — For the love of all creatures, great and small.</div>
+    </div>
+  </footer>
+
+  <!-- MODAL POPUP FOR LEGAL PAGES (on click show details in modal) -->
+  <div id="legalModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 modal-transition invisible opacity-0" aria-hidden="true">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
+    <div class="relative bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0 modal-content-wrapper">
+      <div class="flex justify-between items-center border-b border-gray-200 px-6 py-4 bg-white sticky top-0 z-10">
+        <h3 id="modalTitle" class="text-xl font-display font-bold text-gray-900">Legal Information</h3>
+        <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 text-2xl leading-none focus:outline-none">&times;</button>
+      </div>
+      <div id="modalBody" class="p-6 overflow-y-auto text-gray-700 space-y-4" style="max-height: calc(85vh - 80px);"></div>
+      <div class="border-t border-gray-100 px-6 py-3 bg-gray-50 flex justify-end">
+        <button id="modalCloseFooter" class="px-5 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium hover:bg-emerald-200 transition">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Legal content library for modal
+      const legalContent = {
+        privacy: {
+          title: "Privacy Policy",
+          body: `<p class="mb-3"><strong>Effective Date:</strong> April 22, 2026</p><p>WildPulse respects your privacy. This policy describes how we handle personal data from readers, subscribers, and donors.</p><h4 class="font-semibold mt-3">1. Information Collected</h4><p>We collect names, emails, and reading preferences when you subscribe or comment. Donations processed securely via third parties.</p><h4 class="font-semibold mt-3">2. Use of Data</h4><p>To send newsletters, personalize content, and improve our animal blog. We never sell your data.</p><h4 class="font-semibold mt-3">3. Cookies</h4><p>We use analytics cookies to measure readership and essential cookies for site functionality.</p><h4 class="font-semibold mt-3">4. Your Rights</h4><p>You can request deletion or unsubscribe anytime via email: privacy@wildpulse.com</p>`
+        },
+        terms: {
+          title: "Terms of Service",
+          body: `<p><strong>Last Updated:</strong> April 2026</p><p>By accessing WildPulse, you agree to these Terms. Our content is for informational and educational purposes.</p><h4 class="font-semibold mt-3">1. Intellectual Property</h4><p>All wildlife stories and photographs are owned by WildPulse or licensed from contributors. Do not republish without credit.</p><h4 class="font-semibold mt-3">2. User Contributions</h4><p>Comments must be respectful. We reserve right to remove harmful or spam content.</p><h4 class="font-semibold mt-3">3. Disclaimer</h4><p>We are not liable for野外 safety advice. Always consult local guides before wildlife encounters.</p><p>For inquiries: legal@wildpulse.com</p>`
+        },
+        cookies: {
+          title: "Cookie Policy",
+          body: `<p>WildPulse uses cookies to enhance browsing and analyze traffic.</p><h4 class="font-semibold mt-3">What are cookies?</h4><p>Small text files stored on your device that remember preferences and session data.</p><h4 class="font-semibold mt-3">How we use cookies</h4><ul class="list-disc pl-5"><li><strong>Essential:</strong> to keep the website secure and functional.</li><li><strong>Analytics:</strong> to understand which animal stories are most popular.</li><li><strong>Preferences:</strong> dark mode and reading list.</li></ul><h4 class="font-semibold mt-3">Manage Settings</h4><p>You can block cookies via browser but some interactive features might break.</p>`
+        }
+      };
+
+      const modal = document.getElementById('legalModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalBody = document.getElementById('modalBody');
+      const closeBtn = document.getElementById('closeModalBtn');
+      const closeFooter = document.getElementById('modalCloseFooter');
+      const modalWrapper = document.querySelector('.modal-content-wrapper');
+
+      function openModal(type) {
+        const data = legalContent[type];
+        if (!data) return;
+        modalTitle.innerText = data.title;
+        modalBody.innerHTML = data.body;
+        modal.classList.remove('invisible', 'opacity-0');
+        document.body.classList.add('modal-open');
+        setTimeout(() => {
+          if (modalWrapper) {
+            modalWrapper.classList.remove('scale-95', 'opacity-0');
+            modalWrapper.classList.add('scale-100', 'opacity-100');
+          }
+        }, 20);
+      }
+
+      function closeModal() {
+        if (modalWrapper) {
+          modalWrapper.classList.remove('scale-100', 'opacity-100');
+          modalWrapper.classList.add('scale-95', 'opacity-0');
+        }
+        setTimeout(() => {
+          modal.classList.add('invisible', 'opacity-0');
+          document.body.classList.remove('modal-open');
+          if (modalWrapper) {
+            modalWrapper.classList.add('scale-95', 'opacity-0');
+            modalWrapper.classList.remove('scale-100', 'opacity-100');
+          }
+        }, 200);
+      }
+
+      document.querySelectorAll('.legal-link').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const legalType = btn.getAttribute('data-legal');
+          openModal(legalType);
+        });
+      });
+      closeBtn.addEventListener('click', closeModal);
+      closeFooter.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.classList.contains('invisible')) closeModal(); });
+
+      // Mobile menu toggle
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobilePanel = document.getElementById('mobileMenu');
+      if (mobileBtn && mobilePanel) {
+        mobileBtn.addEventListener('click', () => {
+          mobilePanel.classList.toggle('hidden');
+        });
+        // Close on anchor click inside mobile menu
+        mobilePanel.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => mobilePanel.classList.add('hidden'));
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
